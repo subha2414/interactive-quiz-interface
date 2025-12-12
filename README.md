@@ -92,7 +92,7 @@ Open http://localhost:5173
 This project is deployed on Vercel.
 
 
-https://interactive-quiz-interface-cnme.vercel.app/
+https://interactive-quiz-interface.vercel.app/
 
 ## 🙌 Thank You
 
