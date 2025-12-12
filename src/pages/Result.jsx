@@ -2,23 +2,22 @@ export default function Result({ score, total, restart }) {
   const percentage = Math.round((score / total) * 100);
 
   return (
-    <div className="text-center mt-20">
-
-      <button className="bg-blue-100 px-6 py-1 rounded-full text-gray-700 mb-6">
+    <div className="flex flex-col items-center justify-center text-center">
+      <p className="text-lg bg-blue-100 text-blue-900 px-6 py-2 rounded-full mb-6">
         Keep Learning!
-      </button>
+      </p>
 
-      <h2 className="text-4xl font-serif text-blue-900 mb-4">
+      <h1 className="text-5xl font-serif text-blue-900 mb-4">
         Your Final score is
-      </h2>
+      </h1>
 
-      <div className="text-[120px] font-serif text-blue-900 leading-none">
+      <p className="text-[150px] font-bold text-blue-900 leading-none">
         {percentage}%
-      </div>
+      </p>
 
       <button
         onClick={restart}
-        className="mt-10 bg-blue-300 px-8 py-3 rounded-lg hover:bg-blue-400 text-lg"
+        className="mt-8 bg-blue-300 px-8 py-3 rounded-xl text-blue-900 hover:bg-blue-400 transition text-lg"
       >
         Start Again
       </button>

@@ -90,6 +90,8 @@ Open http://localhost:5173
  ## 🌐 Deployment
 
 This project is deployed on Vercel.
+
+
 https://frontend-ui-assignment-figma.vercel.app/
 
 ## 🙌 Thank You

@@ -7,29 +7,41 @@ export default function Quiz({ setScore, setShowResult }) {
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState(null);
 
+  // Store user answers (null = unanswered)
+  const [answers, setAnswers] = useState(Array(questions.length).fill(null));
+
   function next() {
     if (!selected) return;
 
-    if (selected === questions[index].answer)
-      setScore((prev) => prev + 1);
+    // Save selected answer for current question
+    const updated = [...answers];
+    updated[index] = selected;
+    setAnswers(updated);
 
+    // If last question → calculate score & show result
     if (index + 1 === questions.length) {
+      const finalScore = updated.filter(
+        (ans, i) => ans === questions[i].answer
+      ).length;
+
+      setScore(finalScore);
       setShowResult(true);
       return;
     }
 
+    // Next question
     setIndex(index + 1);
-    setSelected(null);
+    setSelected(updated[index + 1]); // load previous selection or null
   }
 
   function prev() {
     if (index === 0) return;
     setIndex(index - 1);
-    setSelected(null);
+    setSelected(answers[index - 1]); // Load previously selected option
   }
 
   return (
-    <div className="flex flex-col items-center text-center">
+    <div className="relative flex flex-col items-center text-center h-full w-full">
 
       {/* Title */}
       <h1 className="text-5xl font-serif font-bold text-blue-900 mb-2">
@@ -44,7 +56,7 @@ export default function Quiz({ setScore, setShowResult }) {
       {/* Progress Bar */}
       <ProgressBar current={index + 1} total={questions.length} />
 
-      {/* Question Block */}
+      {/* Question Card */}
       <QuestionCard
         q={questions[index]}
         selected={selected}
@@ -52,20 +64,39 @@ export default function Quiz({ setScore, setShowResult }) {
       />
 
       {/* Navigation Buttons */}
-      <div className="flex justify-between w-full max-w-3xl mt-8">
-        <button
-          onClick={prev}
-          disabled={index === 0}
-          className={`px-4 py-2 rounded-lg text-blue-900 bg-blue-100 hover:bg-blue-200 transition 
-          ${index === 0 ? "opacity-40 cursor-not-allowed" : ""}`}>
-          ←
-        </button>
+      <div className="flex justify-end w-full max-w-3xl mt-10 pr-4">
+        <div className="flex gap-3">
 
-        <button
-          onClick={next}
-          className="px-6 py-2 bg-blue-300 rounded-lg text-blue-900 font-medium hover:bg-blue-400 transition">
-          {index + 1 === questions.length ? "Submit" : "→"}
-        </button>
+          {/* Previous */}
+          <button
+            onClick={prev}
+            disabled={index === 0}
+            className={`
+              w-12 h-12 rounded-xl flex items-center justify-center
+              shadow-md transition text-xl font-bold
+              ${index === 0
+                ? "bg-gradient-to-br from-gray-100 to-gray-200 text-gray-400 cursor-not-allowed"
+                : "bg-gradient-to-br from-blue-100 to-blue-200 text-blue-800 hover:shadow-lg"
+              }
+            `}
+          >
+            ←
+          </button>
+
+          {/* Next or Submit */}
+          <button
+            onClick={next}
+            className="
+              w-12 h-12 rounded-xl flex items-center justify-center
+              shadow-md transition text-xl font-bold
+              bg-gradient-to-br from-blue-200 to-blue-300 
+              text-blue-900 hover:shadow-lg
+            "
+          >
+            {index + 1 === questions.length ? "✔" : "→"}
+          </button>
+
+        </div>
       </div>
     </div>
   );
