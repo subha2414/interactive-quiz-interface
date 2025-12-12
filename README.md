@@ -92,7 +92,7 @@ Open http://localhost:5173
 This project is deployed on Vercel.
 
 
-https://frontend-ui-assignment-figma.vercel.app/
+https://interactive-quiz-interface-cnme.vercel.app/
 
 ## 🙌 Thank You
 
